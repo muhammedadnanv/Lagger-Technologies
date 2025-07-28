@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lagger Technologies - Custom Software Development & IT Consulting</title>
+    <meta name="description" content="  Lagger  Technologies LLC provides custom software development, IT consulting services, staff augmentation, and digital transformation solutions for businesses.">
+    <meta name="keywords" content="custom software development, IT consulting services, staff augmentation, digital transformation, AI solutions">
+    <link rel="icon" href="https://i.ibb.co/21ChGsDc/1737793785329.jpg" type="image/png">
+    <!-- Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Remotion for Animations -->
+    <script src="https://cdn.jsdelivr.net/npm/@remotion/player@4.0.97/dist/index.global.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/react@18.2.0/umd/react.production.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/react-dom@18.2.0/umd/react-dom.production.min.js"></script>
+    <!-- Custom Tailwind Configuration -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'inter': ['Inter', 'sans-serif'],
+                        'poppins': ['Poppins', 'sans-serif'],
+                    },
+                    colors: {
+                        'roca-blue': '	#2EC4E8',
+                        'roca-light-blue': '	#2EC4E8',
+                        'roca-dark': '#0f9ceeff',
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        @keyframes pulse-glow {
+            0% { opacity: 0.5; }
+            50% { opacity: 1; }
+            100% { opacity: 0.5; }
+        }
+        
+        .animated-shape {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(50px);
+            z-index: 0;
+        }
+        
+        .shape-1 {
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, 	#10caf8ff 0%, rgba(10, 179, 246, 0.4) 100%);
+            top: -100px;
+            left: -100px;
+            animation: pulse-glow 8s infinite ease-in-out;
+        }
+        
+        .shape-2 {
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(12, 151, 251, 0.84) 0%, rgba(8, 163, 234, 0.4) 100%);
+            top: 50px;
+            right: 50px;
+            animation: pulse-glow 6s infinite ease-in-out 1s;
+        }
+        
+        .shape-3 {
+            width: 250px;
+            height: 250px;
+            background: radial-gradient(circle, 	#2EC4E8 0%, rgba(17, 151, 247, 0.4) 100%);
+            bottom: -50px;
+            right: 30%;
+            animation: pulse-glow 10s infinite ease-in-out 2s;
+        }
+        
+        .floating-element {
+            animation: float 6s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Header/Navigation -->
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <a href="/" class="flex items-center gap-2">
+                <img src="https://i.ibb.co/21ChGsDc/1737793785329.jpg" alt="Roca Soft Logo" class="h-10">
+                <span class="font-poppins font-semibold text-xl text-roca-dark">Lagger Technologies</span>
+            </a>
+            <nav class="hidden md:flex gap-8">
+                <a href="index.html" class="font-medium text-roca-blue hover:text-roca-light-blue transition">Home</a>
+                <a href="services.html" class="font-medium text-gray-700 hover:text-roca-blue transition">Services</a>
+                <a href="about.html" class="font-medium text-gray-700 hover:text-roca-blue transition">About Us</a>
+                <a href="contact.html" class="font-medium text-gray-700 hover:text-roca-blue transition">Contact</a>
+            </nav>
+            <button id="mobile-menu-button" class="md:hidden cursor-pointer">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                </svg>
+            </button>
+            <div id="mobile-menu" class="hidden fixed inset-0 bg-gray-900 bg-opacity-50 z-50 md:hidden">
+                <div class="bg-white h-screen w-64 p-5 shadow-lg absolute right-0 top-0">
+                    <div class="flex justify-between items-center mb-6">
+                        <a href="/" class="flex items-center gap-2">
+                            <img src="https://i.ibb.co/21ChGsDc/1737793785329.jpg" alt="Roca Soft Logo" class="h-8">
+                            <span class="font-poppins font-semibold text-lg text-roca-dark">Lagger Technologies</span>
+                        </a>
+                        <button id="close-mobile-menu" class="focus:outline-none cursor-pointer">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                        </button>
+                    </div>
+                    <nav class="flex flex-col gap-4">
+                        <a href="index.html" class="font-medium text-roca-blue hover:text-roca-light-blue transition py-2 border-b border-gray-100">Home</a>
+                        <a href="services.html" class="font-medium text-gray-700 hover:text-roca-blue transition py-2 border-b border-gray-100">Services</a>
+                        <a href="about.html" class="font-medium text-gray-700 hover:text-roca-blue transition py-2 border-b border-gray-100">About Us</a>
+                        <a href="contact.html" class="font-medium text-gray-700 hover:text-roca-blue transition py-2">Contact</a>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="py-20 relative overflow-hidden">
+            <div class="animated-shape shape-1"></div>
+            <div class="animated-shape shape-2"></div>
+            <div class="animated-shape shape-3"></div>
+            <div class="container mx-auto px-4 flex flex-col md:flex-row items-center relative z-10">
+                <div class="md:w-1/2 mb-10 md:mb-0">
+                    <h1 class="font-poppins font-bold text-4xl md:text-5xl text-roca-dark mb-4">Transforming Businesses Through Technology</h1>
+                    <p class="text-lg text-gray-600 mb-8">Custom software solutions, IT consulting, and digital transformation services tailored to your business needs.</p>
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <a href="contact.html" class="bg-roca-blue hover:bg-roca-light-blue text-white font-medium py-3 px-6 rounded-lg transition text-center transform hover:scale-105 duration-300">Get in Touch</a>
+                        <a href="services.html" class="border border-roca-blue text-roca-blue hover:bg-blue-50 font-medium py-3 px-6 rounded-lg transition text-center transform hover:scale-105 duration-300">Our Services</a>
+                    </div>
+                </div>
+                <div class="md:w-1/2 floating-element">
+                    <img src="imahr.png" alt="Digital Transformation Illustration" class="rounded-lg shadow-lg w-full">
+                </div>
+            </div>
+        </section>
+
+        <!-- Our Services Section -->
+        <section class="py-16 bg-white">
+            <div class="container mx-auto px-4">
+                <div class="text-center mb-12 animate__animated animate__fadeIn">
+                    <h2 class="font-poppins font-semibold text-4xl mb-6 text-roca-dark bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Our Services</h2>
+                    <p class="text-gray-600 max-w-3xl mx-auto">Comprehensive technology solutions designed to transform your business and drive sustainable growth.</p>
+                </div>
+                
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Software Development Card -->
+                    <div class="bg-gradient-to-br from-white to-blue-50 rounded-xl p-8 shadow-md hover:shadow-xl transition border border-gray-100 group transform hover:-translate-y-2 duration-300">
+                        <div class="bg-blue-100 p-4 rounded-full w-16 h-16 flex items-center justify-center mb-6 group-hover:bg-roca-blue group-hover:text-white transition-all">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8 text-roca-blue group-hover:text-white transition-all">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 7.5l3 2.25-3 2.25m4.5 0h3m-9 8.25h13.5A2.25 2.25 0 0021 18V6a2.25 2.25 0 00-2.25-2.25H5.25A2.25 2.25 0 003 6v12a2.25 2.25 0 002.25 2.25z" />
+                            </svg>
+                        </div>
+                        <h3 class="font-semibold text-xl mb-3 text-roca-dark">Software Development</h3>
+                        <p class="text-gray-600 mb-4">Custom software solutions tailored to your business needs, from web applications to enterprise systems.</p>
+                        <a href="services.html" class="text-roca-blue hover:text-roca-light-blue font-medium inline-flex items-center">
+                            Learn More
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 ml-1 group-hover:animate-bounce">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                            </svg>
+                        </a>
+                    </div>
+                    
+                    <!-- Market Acquisition Card -->
+                    <div class="bg-gradient-to-br from-white to-purple-50 rounded-xl p-8 shadow-md hover:shadow-xl transition border border-gray-100 group transform hover:-translate-y-2 duration-300">
+                        <div class="bg-purple-100 p-4 rounded-full w-16 h-16 flex items-center justify-center mb-6 group-hover:bg-purple-700 group-hover:text-white transition-all">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8 text-purple-700 group-hover:text-white transition-all">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z" />
+                            </svg>
+                        </div>
+                        <h3 class="font-semibold text-xl mb-3 text-roca-dark">Market Acquisition</h3>
+                        <p class="text-gray-600 mb-4">Strategic services to identify, evaluate, and execute growth opportunities for expanding your business reach.</p>
+                        <a href="services.html" class="text-purple-700 hover:text-purple-500 font-medium inline-flex items-center">
+                            Learn More
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 ml-1 group-hover:animate-bounce">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                            </svg>
+                        </a>
+                    </div>
+                    
+                    <!-- Staff Augmentation Card -->
+                    <div class="bg-gradient-to-br from-white to-green-50 rounded-xl p-8 shadow-md hover:shadow-xl transition border border-gray-100 group transform hover:-translate-y-2 duration-300">
+                        <div class="bg-green-100 p-4 rounded-full w-16 h-16 flex items-center justify-center mb-6 group-hover:bg-green-600 group-hover:text-white transition-all">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8 text-green-600 group-hover:text-white transition-all">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m.94 3.198l.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0112 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 016 18.719m12 0a5.971 5.971 0 00-.941-3.197m0 0A5.995 5.995 0 0012 12.75a5.995 5.995 0 00-5.058 2.772m0 0a3 3 0 00-4.681 2.72 8.986 8.986 0 003.74.477m.94-3.197a5.971 5.971 0 00-.94 3.197M15 6.75a3 3 0 11-6 0 3 3 0 016 0zm6 3a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0zm-13.5 0a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z" />
+                            </svg>
+                        </div>
+                        <h3 class="font-semibold text-xl mb-3 text-roca-dark">Staff Augmentation</h3>
+                        <p class="text-gray-600 mb-4">Flexible talent solutions to enhance your team with skilled professionals for short-term or long-term projects.</p>
+                        <a href="services.html" class="text-green-600 hover:text-green-500 font-medium inline-flex items-center">
+                            Learn More
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 ml-1 group-hover:animate-bounce">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                            </svg>
+                        </a>
+                    </div>
+                    
+                    <!-- IT Consultancy Card -->
+                    <div class="bg-gradient-to-br from-white to-amber-50 rounded-xl p-8 shadow-md hover:shadow-xl transition border border-gray-100 group transform hover:-translate-y-2 duration-300">
+                        <div class="bg-amber-100 p-4 rounded-full w-16 h-16 flex items-center justify-center mb-6 group-hover:bg-amber-600 group-hover:text-white transition-all">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8 text-amber-600 group-hover:text-white transition-all">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M20.25 8.511c.884.284 1.5 1.128 1.5 2.097v4.286c0 1.136-.847 2.1-1.98 2.193-.34.027-.68.052-1.02.072v3.091l-3-3c-1.354 0-2.694-.055-4.02-.163a2.115 2.115 0 01-.825-.242m9.345-8.334a2.126 2.126 0 00-.476-.095 48.64 48.64 0 00-8.048 0c-1.131.094-1.976 1.057-1.976 2.192v4.286c0 .837.46 1.58 1.155 1.951m9.345-8.334V6.637c0-1.621-1.152-3.026-2.76-3.235A48.455 48.455 0 0011.25 3c-2.115 0-4.198.137-6.24.402-1.608.209-2.76 1.614-2.76 3.235v6.226c0 1.621 1.152 3.026 2.76 3.235.577.075 1.157.14 1.74.194V21l4.155-4.155" />
+                            </svg>
+                        </div>
+                        <h3 class="font-semibold text-xl mb-3 text-roca-dark">IT Consultancy</h3>
+                        <p class="text-gray-600 mb-4">Expert guidance on technology strategy, digital transformation, and IT infrastructure optimization.</p>
+                        <a href="services.html" class="text-amber-600 hover:text-amber-500 font-medium inline-flex items-center">
+                            Learn More
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 ml-1 group-hover:animate-bounce">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                            </svg>
+                        </a>
+                    </div>
+                    
+                    <!-- AI Solutions Card -->
+                    <div class="bg-gradient-to-br from-white to-cyan-50 rounded-xl p-8 shadow-md hover:shadow-xl transition border border-gray-100 group transform hover:-translate-y-2 duration-300">
+                        <div class="bg-cyan-100 p-4 rounded-full w-16 h-16 flex items-center justify-center mb-6 group-hover:bg-cyan-600 group-hover:text-white transition-all">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8 text-cyan-600 group-hover:text-white transition-all">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456zM16.894 20.567L16.5 21.75l-.394-1.183a2.25 2.25 0 00-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 001.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 001.423 1.423l1.183.394-1.183.394a2.25 2.25 0 00-1.423 1.423z" />
+                            </svg>
+                        </div>
+                        <h3 class="font-semibold text-xl mb-3 text-roca-dark">AI Solutions</h3>
+                        <p class="text-gray-600 mb-4">Cutting-edge artificial intelligence solutions to automate processes, gain insights, and drive innovation.</p>
+                        <a href="services.html" class="text-cyan-600 hover:text-cyan-500 font-medium inline-flex items-center">
+                            Learn More
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 ml-1 group-hover:animate-bounce">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                            </svg>
+                        </a>
+                    </div>
+                    
+                    <!-- Digital Transformation Card -->
+                    <div class="bg-gradient-to-br from-white to-rose-50 rounded-xl p-8 shadow-md hover:shadow-xl transition border border-gray-100 group transform hover:-translate-y-2 duration-300">
+                        <div class="bg-rose-100 p-4 rounded-full w-16 h-16 flex items-center justify-center mb-6 group-hover:bg-rose-600 group-hover:text-white transition-all">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8 text-rose-600 group-hover:text-white transition-all">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" />
+                            </svg>
+                        </div>
+                        <h3 class="font-semibold text-xl mb-3 text-roca-dark">Digital Transformation</h3>
+                        <p class="text-gray-600 mb-4">End-to-end digital transformation services to modernize your business and create competitive advantages.</p>
+                        <a href="services.html" class="text-rose-600 hover:text-rose-500 font-medium inline-flex items-center">
+                            Learn More
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 ml-1 group-hover:animate-bounce">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="mt-12 text-center animate__animated animate__fadeIn">
+                    <a href="/services/" class="bg-gradient-to-r from-roca-blue to-roca-light-blue text-white font-medium py-3 px-8 rounded-lg transition inline-block hover:shadow-lg transform hover:-translate-y-1 duration-300">View All Services</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Software Development Section -->
+        <section class="py-16 bg-gradient-to-r from-blue-50 via-blue-100 to-indigo-50 animate__animated animate__fadeIn">
+            <div class="container mx-auto px-4">
+                <div class="flex flex-col md:flex-row items-center gap-12">
+                    <div class="md:w-1/2 animate__animated animate__fadeInLeft">
+                        <img src="/images/software-dev-1.jpeg" alt="Software Development" class="rounded-xl shadow-lg w-full object-cover h-80 hover:shadow-2xl transition-all duration-300 transform hover:scale-105">
+                    </div>
+                    <div class="md:w-1/2 animate__animated animate__fadeInRight">
+                        <div class="inline-block bg-blue-200 text-blue-700 px-4 py-1 rounded-full text-sm font-medium mb-4 hover:bg-blue-300 transition-colors">Software Development</div>
+                        <h2 class="font-poppins font-semibold text-3xl mb-4 text-roca-dark bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">Innovative Custom Software Solutions</h2>
+                        <p class="text-gray-700 mb-6">Our expert development team creates tailored software solutions that align perfectly with your business objectives. From web applications to enterprise systems, we deliver high-quality, scalable software.</p>
+                        <ul class="mb-6 space-y-2">
+                            <li class="flex items-center gap-2 text-gray-700 hover:translate-x-1 transition-transform">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 text-blue-500">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                                Web & Mobile Applications
+                            </li>
+                            <li class="flex items-center gap-2 text-gray-700 hover:translate-x-1 transition-transform">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 text-blue-500">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                                Enterprise Solutions
+                            </li>
+                            <li class="flex items-center gap-2 text-gray-700 hover:translate-x-1 transition-transform">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 text-blue-500">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                                API Development & Integration
+                            </li>
+                        </ul>
+                        <a href="services.html" class="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-medium py-2 px-6 rounded-lg transition inline-block shadow-md hover:shadow-lg transform hover:-translate-y-1 duration-300">Explore Solutions</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Market Acquisition Section -->
+        <section class="py-16 bg-gradient-to-r from-purple-50 via-purple-100 to-pink-50 animate__animated animate__fadeIn">
+            <div class="container mx-auto px-4">
+                <div class="flex flex-col md:flex-row-reverse items-center gap-12">
+                    <div class="md:w-1/2 animate__animated animate__fadeInRight">
+                        <img src="/images/market-growth-up.jpeg" alt="Market Acquisition" class="rounded-xl shadow-lg w-full object-cover h-80 hover:shadow-2xl transition-all duration-300 transform hover:scale-105">
+                    </div>
+                    <div class="md:w-1/2 animate__animated animate__fadeInLeft">
+                        <div class="inline-block bg-purple-200 text-purple-700 px-4 py-1 rounded-full text-sm font-medium mb-4 hover:bg-purple-300 transition-colors">Market Acquisition</div>
+                        <h2 class="font-poppins font-semibold text-3xl mb-4 text-roca-dark bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">Strategic Growth & Market Expansion</h2>
+                        <p class="text-gray-700 mb-6">Our strategic market acquisition services help you identify, evaluate, and execute growth opportunities. We provide comprehensive market analysis and strategy development to expand your business reach effectively.</p>
+                        <ul class="mb-6 space-y-2">
+                            <li class="flex items-center gap-2 text-gray-700 hover:translate-x-1 transition-transform">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 text-purple-500">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                                Market Research & Analysis
+                            </li>
+                            <li class="flex items-center gap-2 text-gray-700 hover:translate-x-1 transition-transform">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 text-purple-500">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                                Competitor Analysis
+                            </li>
+                            <li class="flex items-center gap-2 text-gray-700 hover:translate-x-1 transition-transform">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 text-purple-500">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                                Growth Strategy Development
+                            </li>
+                        </ul>
+                        <a href="services.html" class="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-medium py-2 px-6 rounded-lg transition inline-block shadow-md hover:shadow-lg transform hover:-translate-y-1 duration-300">Discover Strategies</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Staff Augmentation Section -->
+        <section class="py-16 bg-gradient-to-r from-teal-50 via-teal-100 to-emerald-50 animate__animated animate__fadeIn">
+            <div class="container mx-auto px-4">
+                <div class="flex flex-col md:flex-row items-center gap-12">
+                    <div class="md:w-1/2 animate__animated animate__fadeInLeft">
+                        <img src="/images/talent.jpeg" alt="Staff Augmentation" class="rounded-xl shadow-lg w-full object-cover h-80 hover:shadow-2xl transition-all duration-300 transform hover:scale-105">
+                    </div>
+                    <div class="md:w-1/2 animate__animated animate__fadeInRight">
+                        <div class="inline-block bg-teal-200 text-teal-700 px-4 py-1 rounded-full text-sm font-medium mb-4 hover:bg-teal-300 transition-colors">Staff Augmentation</div>
+                        <h2 class="font-poppins font-semibold text-3xl mb-4 text-roca-dark bg-gradient-to-r from-teal-600 to-emerald-600 bg-clip-text text-transparent">Flexible Talent Solutions</h2>
+                        <p class="text-gray-700 mb-6">Enhance your team with our specialized talent solutions. Our staff augmentation services provide access to skilled professionals who seamlessly integrate with your existing teams to accelerate project delivery.</p>
+                        <ul class="mb-6 space-y-2">
+                            <li class="flex items-center gap-2 text-gray-700 hover:translate-x-1 transition-transform">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 text-teal-500">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                                Technical Expertise On-Demand
+                            </li>
+                            <li class="flex items-center gap-2 text-gray-700 hover:translate-x-1 transition-transform">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 text-teal-500">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                                Scalable Team Extensions
+                            </li>
+                            <li class="flex items-center gap-2 text-gray-700 hover:translate-x-1 transition-transform">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 text-teal-500">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                                Specialized Skill Integration
+                            </li>
+                        </ul>
+                        <a href="services.html" class="bg-gradient-to-r from-teal-600 to-emerald-600 hover:from-teal-700 hover:to-emerald-700 text-white font-medium py-2 px-6 rounded-lg transition inline-block shadow-md hover:shadow-lg transform hover:-translate-y-1 duration-300">Find Talent</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- IT Consultancy Section -->
+        <section class="py-16 bg-gradient-to-r from-amber-50 via-amber-100 to-orange-50 animate__animated animate__fadeIn">
+            <div class="container mx-auto px-4">
+                <div class="flex flex-col md:flex-row-reverse items-center gap-12">
+                    <div class="md:w-1/2 animate__animated animate__fadeInRight">
+                        <img src="/images/tech-guidance.jpeg" alt="IT Consultancy" class="rounded-xl shadow-lg w-full object-cover h-80 hover:shadow-2xl transition-all duration-300 transform hover:scale-105">
+                    </div>
+                    <div class="md:w-1/2 animate__animated animate__fadeInLeft">
+                        <div class="inline-block bg-amber-200 text-amber-700 px-4 py-1 rounded-full text-sm font-medium mb-4 hover:bg-amber-300 transition-colors">IT Consultancy</div>
+                        <h2 class="font-poppins font-semibold text-3xl mb-4 text-roca-dark bg-gradient-to-r from-amber-600 to-orange-600 bg-clip-text text-transparent">Expert Technology Guidance</h2>
+                        <p class="text-gray-700 mb-6">Our expert consultants provide strategic guidance to optimize your digital transformation journey. We help you navigate complex technology decisions and implement solutions that drive business growth.</p>
+                        <ul class="mb-6 space-y-2">
+                            <li class="flex items-center gap-2 text-gray-700 hover:translate-x-1 transition-transform">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 text-amber-500">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                                Digital Transformation Strategy
+                            </li>
+                            <li class="flex items-center gap-2 text-gray-700 hover:translate-x-1 transition-transform">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 text-amber-500">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                                Technology Assessment
+                            </li>
+                            <li class="flex items-center gap-2 text-gray-700 hover:translate-x-1 transition-transform">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 text-amber-500">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                                Implementation Planning
+                            </li>
+                        </ul>
+                        <a href="services.html" class="bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-700 hover:to-orange-700 text-white font-medium py-2 px-6 rounded-lg transition inline-block shadow-md hover:shadow-lg transform hover:-translate-y-1 duration-300">Get Guidance</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+         <!-- Our Vision Section -->
+        <section class="py-16 bg-gradient-to-br from-indigo-50 via-blue-100 to-cyan-50 animate__animated animate__fadeIn">
+            <div class="container mx-auto px-4">
+                <div class="flex flex-col md:flex-row items-center gap-12">
+                    <div class="md:w-1/2 mb-6 md:mb-0 animate__animated animate__fadeInLeft">
+                        <img src="/images/vision.avif" alt="Future Technology Vision" class="rounded-xl shadow-lg w-full object-cover h-80 hover:shadow-2xl transition-all duration-300 transform hover:scale-105">
+                    </div>
+                    <div class="md:w-1/2 animate__animated animate__fadeInRight">
+                        <div class="inline-block bg-cyan-200 text-cyan-700 px-4 py-1 rounded-full text-sm font-medium mb-4 hover:bg-cyan-300 transition-colors">Our Vision</div>
+                        <h2 class="font-poppins font-semibold text-3xl mb-4 text-roca-dark bg-gradient-to-r from-indigo-600 to-cyan-600 bg-clip-text text-transparent">Moving Humanity Forward Through Technology</h2>
+                        <p class="text-gray-700 mb-6">At RocaSoft, we collaborate with businesses that share our passion for innovation. With exponential technologies like AI, blockchain, AR, VR, and digital twins transforming the landscape, we help clients harness these powerful tools to revolutionize operations and create unprecedented value.</p>
+                        <div class="flex flex-wrap gap-3 mb-6">
+                            <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm hover:bg-blue-200 transition-colors transform hover:scale-105 duration-300">Artificial Intelligence</span>
+                            <span class="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm hover:bg-purple-200 transition-colors transform hover:scale-105 duration-300">Blockchain</span>
+                            <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm hover:bg-green-200 transition-colors transform hover:scale-105 duration-300">Augmented Reality</span>
+                            <span class="bg-pink-100 text-pink-800 px-3 py-1 rounded-full text-sm hover:bg-pink-200 transition-colors transform hover:scale-105 duration-300">Virtual Reality</span>
+                            <span class="bg-amber-100 text-amber-800 px-3 py-1 rounded-full text-sm hover:bg-amber-200 transition-colors transform hover:scale-105 duration-300">Digital Twins</span>
+                        </div>
+                        <a href="about.html" class="bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white font-medium py-2 px-6 rounded-lg transition inline-block shadow-md hover:shadow-lg transform hover:-translate-y-1 duration-300">Discover Our Mission</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- CTA Section -->
+        <section class="py-16 bg-roca-dark text-white">
+            <div class="container mx-auto px-4 text-center">
+                <h2 class="font-poppins font-semibold text-3xl mb-6">Ready to Transform Your Business?</h2>
+                <p class="text-blue-100 max-w-2xl mx-auto mb-8">Let's work together to create technology solutions that drive your business forward.</p>
+                <a href="contact.html" class="bg-roca-blue hover:bg-roca-light-blue text-white font-medium py-3 px-8 rounded-lg transition inline-block">Contact Us Today</a>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-300 py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <img src="/images/icon_transparent.png" alt="Roca Soft Logo" class="h-10 mb-4 bg-white rounded-full">
+                    <p class="mb-4">A full service technology company offering cutting edge solutions in AI and blockchain technologies.</p>
+                    <div class="flex gap-4">
+                        <a href="https://www.linkedin.com/company/rocasoftae" target="_blank" class="text-gray-400 hover:text-white transition">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-linkedin" viewBox="0 0 16 16">
+                                <path d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854V1.146zm4.943 12.248V6.169H2.542v7.225h2.401zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248-.822 0-1.359.54-1.359 1.248 0 .694.521 1.248 1.327 1.248h.016zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016a5.54 5.54 0 0 1 .016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225h2.4z"/>
+                            </svg>
+                        </a>
+                        <a href="https://x.com/Rocasofttech" target="_blank" class="text-gray-400 hover:text-white transition">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-twitter" viewBox="0 0 16 16">
+                                <path d="M5.026 15c6.038 0 9.341-5.003 9.341-9.334 0-.14 0-.282-.006-.422A6.685 6.685 0 0 0 16 3.542a6.658 6.658 0 0 1-1.889.518 3.301 3.301 0 0 0 1.447-1.817 6.533 6.533 0 0 1-2.087.793A3.286 3.286 0 0 0 7.875 6.03a9.325 9.325 0 0 1-6.767-3.429 3.289 3.289 0 0 0 1.018 4.382A3.323 3.323 0 0 1 .64 6.575v.045a3.288 3.288 0 0 0 2.632 3.218 3.203 3.203 0 0 1-.865.115 3.23 3.23 0 0 1-.614-.057 3.283 3.283 0 0 0 3.067 2.277A6.588 6.588 0 0 1 .78 13.58a6.32 6.32 0 0 1-.78-.045A9.344 9.344 0 0 0 5.026 15z"/>
+                            </svg>
+                        </a>
+                        <a href="https://www.facebook.com/share/1C1rtq7DYk/?mibextid=wwXIfr" target="_blank" class="text-gray-400 hover:text-white transition">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-facebook" viewBox="0 0 16 16">
+                                <path d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951z"/>
+                            </svg>
+                        </a>
+                        <a href="https://www.instagram.com/roca.soft" target="_blank" class="text-gray-400 hover:text-white transition">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-instagram" viewBox="0 0 16 16">
+                                <path d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.917 3.917 0 0 0-1.417.923A3.927 3.927 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.916 3.916 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.926 3.926 0 0 0-.923-1.417A3.911 3.911 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0h.003zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599.28.28.453.546.598.92.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.47 2.47 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.478 2.478 0 0 1-.92-.598 2.48 2.48 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233 0-2.136.008-2.388.046-3.231.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92.28-.28.546-.453.92-.598.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045v.002zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92zm-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217zm0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="font-semibold text-white text-lg mb-4">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="/" class="hover:text-white transition">Home</a></li>
+                        <li><a href="/services/" class="hover:text-white transition">Services</a></li>
+                        
+                        <li><a href="/about/" class="hover:text-white transition">About Us</a></li>
+                        <li><a href="/contact/" class="hover:text-white transition">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold text-white text-lg mb-4">Services</h4>
+                    <ul class="space-y-2">
+                        <li><a href="/services/#software-development" class="hover:text-white transition">Software Development</a></li>
+                        <li><a href="/services/#market-acquisition" class="hover:text-white transition">Market Acquisition</a></li>
+                        <li><a href="/services/#staff-augmentation" class="hover:text-white transition">Staff Augmentation</a></li>
+                        <li><a href="/services/#it-consultancy" class="hover:text-white transition">IT Consultancy</a></li>
+                        <li><a href="/roca-ai/" class="hover:text-white transition">AI Solutions</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold text-white text-lg mb-4">Contact Us</h4>
+                    <ul class="space-y-2">
+                        <li class="flex items-start gap-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mt-0.5 flex-shrink-0">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
+                            </svg>
+                            <a href="https://maps.app.goo.gl/Sh84VuLCKL5VKhk38" target="_blank" class="hover:text-white transition">Oud Metha 99 building, Office 206, Oud Metha, Dubai, UAE</a>
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 flex-shrink-0">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" />
+                            </svg>
+                            <a href="tel:+97142297730" class="hover:text-white transition">+971 (04) 229 7730</a>
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 flex-shrink-0">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
+                            </svg>
+                            <a href="mailto:info@rocasoft.ae" class="hover:text-white transition">info@rocasoft.ae</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 pt-8 text-center text-sm">
+                <p>&copy; 2025 Roca Technologies LLC. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+    <script>
+        // Mobile menu functionality
+        document.addEventListener('DOMContentLoaded', function() { 
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const closeMenuButton = document.getElementById('close-mobile-menu');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const menuContainer = mobileMenu ? mobileMenu.querySelector('div') : null;
+            
+            if (mobileMenuButton && closeMenuButton && mobileMenu && menuContainer) {
+                // Add initial transform for animation
+                menuContainer.style.transform = 'translateX(100%)';
+                menuContainer.style.transition = 'transform 0.3s ease-in-out';
+                
+                mobileMenuButton.addEventListener('click', () => { 
+                    mobileMenu.classList.remove('hidden');
+                    document.body.style.overflow = 'hidden'; // Prevent scrolling when menu is open
+                    
+                    // Start animation after a small delay to ensure it runs
+                    setTimeout(() => {
+                        menuContainer.style.transform = 'translateX(0%)';
+                    }, 10);
+                });
+                
+                const closeMenu = () => {
+                    menuContainer.style.transform = 'translateX(100%)';
+                    
+                    // Wait for animation to complete before hiding
+                    setTimeout(() => {
+                        mobileMenu.classList.add('hidden');
+                        document.body.style.overflow = ''; // Restore scrolling
+                    }, 300); // Match the CSS transition time
+                };
+                
+                closeMenuButton.addEventListener('click', closeMenu);
+                
+                // Close menu when clicking outside of menu
+                mobileMenu.addEventListener('click', (event) => {
+                    if (event.target === mobileMenu) {
+                        closeMenu();
+                    }
+                });
+            } else {
+                console.error('Mobile menu elements not found');
+            }
+        });
+    </script>
+</body>
+</html> 
